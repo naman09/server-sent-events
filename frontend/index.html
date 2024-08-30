@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSE Client</title>
+</head>
+<body>
+    <h1>Server-Sent Events Client</h1>
+    <div id="sse-messages"></div>
+
+    <script>
+        const eventSource = new EventSource('http://localhost:3000/sse');
+
+        eventSource.onmessage = function(event) {
+            const messageDiv = document.createElement('div');
+            messageDiv.textContent = 'Message: ' + event.data;
+            document.getElementById('sse-messages').appendChild(messageDiv);
+        };
+
+        eventSource.onerror = function(event) {
+            console.error('Error:', event);
+        };
+    </script>
+</body>
+</html>
